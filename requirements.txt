@@ -1,3 +1,5 @@
-express, mongoose, nodemon, dotenv, cors
+express, mongoose, nodemon, dotenv, cors, express-rate-limit, jsonwebtoken
+
 
 start server: npm start
+start client: npm start

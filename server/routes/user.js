@@ -1,8 +1,6 @@
 const router = require('express').Router();
 
 const userModel = require('../models/user');
-const managerModel = require('../models/manager');
-
 /* 
 Adds a new User to the database
 */
@@ -14,9 +12,13 @@ router.post('/signup/user', async (req, res) => {
             email: req.body.email
         })
         const saveUser = await newUser.save();
-        res.status(200).json(saveUser);
-    }catch(err) {
-        res.json(err);
+        if (saveUser) {
+            res.status(200).json({ message: `Created user ${saveUser['username']}` });
+        } else {
+        res.status(500).json({ message: 'We cannot create your account at this time' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: 'Username or Email already exists.' });
     }
 });
 
@@ -29,10 +31,13 @@ router.post('/login/user', async (req, res) => {
             "username": req.body.username,
             "password": req.body.password
         });
-        console.log(loginUser)
-        res.status(200).json(loginUser);
-    }catch(err) {
-        res.json(err);
+        if (loginUser) {
+            res.status(200).json(loginUser);
+        } else {
+        res.status(500).json({ message: 'We cannot retrieve your account at this time.' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: 'Username or Password does not exist.' });
     }
 });
 
