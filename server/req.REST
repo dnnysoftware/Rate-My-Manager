@@ -30,8 +30,8 @@ Content-Type: application/json
 
 {
     "firstName": "Daniel",
-    "lastName": "Mironiuk",
-    "birthDate": "2000-05-11"
+    "lastName": "Michaels",
+    "birthDate": "1966-06-6"
 }
 
 

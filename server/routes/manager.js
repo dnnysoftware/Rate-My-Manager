@@ -24,15 +24,42 @@ router.post('/add/manager', async (req, res) => {
 Recieves all users that made posts on a specific manager by a manager id
 */
 router.get('/receive/managers/:name', async (req, res) => {
-    try{
-        const firstName = req.params.name.substring(0, req.params.name.indexOf(' ')); 
-        const lastName = req.params.name.substring(req.params.name.indexOf(' ') + 1);
-        const foundManagers = await managerModel.find({"firstName": firstName, "lastName": lastName});
+    try {
+        let foundManagers = [];
+        const searchName = req.params.name.trim(); // Trim any leading or trailing spaces
+        
+        if (searchName.indexOf(' ') === -1) {
+            foundManagers = await managerModel.find({
+                $or: [
+                    { "firstName": { $regex: new RegExp(searchName, 'i') } },
+                    { "lastName": { $regex: new RegExp(searchName, 'i') } }
+                ]
+            });
+        } else {
+            const names = searchName.split(' ');
+            const firstName = names[0];
+            const lastName = names.slice(1).join(' '); // Combine remaining names as the last name
+            
+            foundManagers = await managerModel.find({
+                $or: [
+                    {
+                        "firstName": { $regex: new RegExp(firstName, 'i') },
+                        "lastName": { $regex: new RegExp(lastName, 'i') }
+                    },
+                    {
+                        "firstName": { $regex: new RegExp(lastName, 'i') },
+                        "lastName": { $regex: new RegExp(firstName, 'i') }
+                    }
+                ]
+            });
+        }
         res.status(200).json(foundManagers);
-    }catch(err) {
+    } catch(err) {
         res.json(err);
     }
 });
+
+
 
 
 /* 
