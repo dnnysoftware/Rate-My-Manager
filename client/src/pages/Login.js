@@ -18,21 +18,24 @@ export default function Login() {
 
         // Create an object with the data
         const loginUser = {
-          username: username,
-          password: password
+            username: username,
+            password: password
         };
-    
+
         // Make the Axios call
         axios.post('/login/user', loginUser)
-          .then((response) => {
+            .then((response) => {
             // Handle the response if needed
-            console.log(response.data);
+            const token = response.data.token;
+            localStorage.setItem('token', token); // Store the token in local storage
+
             setMessage('');
-          })
-          .catch((error) => {
+            navigate('/search'); // Redirect to the dashboard or another protected route
+            })
+            .catch((error) => {
             // Handle errors if any
             setMessage(error.response.data.message);
-          });
+            });
     };
 
     

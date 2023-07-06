@@ -48,73 +48,73 @@ export default function Signup() {
 
     return (
         <div>
-        <Container>
-            <Row className="vh-100 d-flex justify-content-center align-items-center">
-            <Col md={8} lg={6} xs={12}>
-                <Card className="px-4">
-                <Card.Body>
-                    <div className="mb-3 mt-md-4">
-                    <h2 className="fw-bold mb-2 text-center text-uppercase ">
-                        Rate My Manager
-                    </h2>
-                    <div className="mb-3">
-                        <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="username">
-                            <Form.Label className="text-center">Username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter username" />
-                        </Form.Group>
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
+                <Col md={8} lg={6} xs={12}>
+                    <Card className="px-4">
+                    <Card.Body>
+                        <div className="mb-3 mt-md-4">
+                        <h2 className="fw-bold mb-2 text-center text-uppercase ">
+                            Rate My Manager
+                        </h2>
+                        <div className="mb-3">
+                            <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="username">
+                                <Form.Label className="text-center">Username</Form.Label>
+                                <Form.Control type="text" placeholder="Enter username" />
+                            </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="email">
-                            <Form.Label className="text-center">
-                            Email address
-                            </Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                        </Form.Group>
+                            <Form.Group className="mb-3" controlId="email">
+                                <Form.Label className="text-center">
+                                Email address
+                                </Form.Label>
+                                <Form.Control type="email" placeholder="Enter email" />
+                            </Form.Group>
 
-                        <Form.Group
-                            className="mb-3"
-                            controlId="password"
-                        >
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Enter password" />
-                        </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="confirmPassword"
-                        >
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="confirmPassword" placeholder="Enter password" />
-                        </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="formBasicCheckbox"
-                        ></Form.Group>
-                        {message !== '' ? (
-                            <div className="alert alert-danger" role="alert">
-                                {message}
+                            <Form.Group
+                                className="mb-3"
+                                controlId="password"
+                            >
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Enter password" minlength="10"/>
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3"
+                                controlId="confirmPassword"
+                            >
+                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Control type="confirmPassword" placeholder="Enter password" minlength="10"/>
+                            </Form.Group>
+                            <Form.Group
+                                className="mb-3"
+                                controlId="formBasicCheckbox"
+                            ></Form.Group>
+                            {message !== '' ? (
+                                <div className="alert alert-danger" role="alert">
+                                    {message}
+                                </div>
+                            ) : null}
+                            <div className="d-grid">
+                                <Button variant="primary" type="submit">
+                                Create Account
+                                </Button>
                             </div>
-                        ) : null}
-                        <div className="d-grid">
-                            <Button variant="primary" type="submit">
-                            Create Account
-                            </Button>
+                            </Form>
+                            <div className="mt-3">
+                            <p className="mb-0  text-center">
+                                Already have an account??{' '}
+                                <a href="/login" className="text-primary fw-bold">
+                                Log In
+                                </a>
+                            </p>
+                            </div>
                         </div>
-                        </Form>
-                        <div className="mt-3">
-                        <p className="mb-0  text-center">
-                            Already have an account??{' '}
-                            <a href="/login" className="text-primary fw-bold">
-                            Log In
-                            </a>
-                        </p>
                         </div>
-                    </div>
-                    </div>
-                </Card.Body>
-                </Card>
-            </Col>
-            </Row>
-        </Container>
+                    </Card.Body>
+                    </Card>
+                </Col>
+                </Row>
+            </Container>
         </div>
     );
 }
