@@ -4,9 +4,9 @@ POST http://localhost:5500/signup/user
 Content-Type: application/json
 
 {
-    "username": "dm9375",
+    "username": "Robert",
     "password": "hello",
-    "email": "dm9375@rit.edu"
+    "email": "robert@rit.edu"
 } 
 
 ### LOGIN USER
@@ -69,5 +69,23 @@ Content-Type: application/json
     "companies": ["Google"]
 }
 
+
+### New Rating
+
+POST http://localhost:5500/add/rating
+Content-Type: application/json
+
+{
+    "user": "64a4de975b627235b5f5428f",
+    "manager": "64a4dea45b627235b5f54292",
+    "company": "Google",
+    "rating": 3,
+    "description": "This is a rating of a manager"
+}
+
+### GET Ratings for manager
+
+GET http://localhost:5500/receive/ratings/64a4dea45b627235b5f54292
+Content-Type: application/json
 
 

@@ -25,10 +25,9 @@ Recieves all users that made posts on a specific manager by a manager id
 */
 router.get('/receive/managers/:name', async (req, res) => {
     try{
-        const firstName = req.params.name.substring(0, req.params.name.indexOf(' ')); // "72"
-        const lastName = req.params.name.substring(req.params.name.indexOf(' ') + 1); // "tocirah sneab"
+        const firstName = req.params.name.substring(0, req.params.name.indexOf(' ')); 
+        const lastName = req.params.name.substring(req.params.name.indexOf(' ') + 1);
         const foundManagers = await managerModel.find({"firstName": firstName, "lastName": lastName});
-        console.log(foundManagers)
         res.status(200).json(foundManagers);
     }catch(err) {
         res.json(err);
@@ -43,7 +42,7 @@ router.put('/update/manager/user/:mid', async (req, res) => {
     try{
         const mid = req.params.mid;
         const { users } = req.body;
-        const updateUser = await managerModel.findByIdAndUpdate(
+        const updateManager = await managerModel.findByIdAndUpdate(
             mid,
             { $set: { users: users.map(userId => ({ _id: userId })) } },
             { new: true } // Returns the updated user document
@@ -61,13 +60,13 @@ Updates a Manager with a company they may work for
 router.put('/update/manager/company/:mid', async (req, res) => {
     try{
         const mid = req.params.mid;
-        const { users } = req.body;
-        const updateUser = await managerModel.findByIdAndUpdate(
+        const { companies } = req.body;
+        const updateManager = await managerModel.findByIdAndUpdate(
             mid,
-            { $set: { users: users.map(userId => ({ _id: userId })) } },
+            { $set: { companies: companies.map(managerId => ({ _id: managerId })) } },
             { new: true } // Returns the updated user document
         );
-        res.status(200).json("User Added To Manager's Rated");
+        res.status(200).json("New Company Added To Manager's Work Experience");
     }catch(err) {
         res.json(err);
     }
