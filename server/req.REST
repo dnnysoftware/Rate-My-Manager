@@ -62,11 +62,11 @@ Content-Type: application/json
 
 ### UPDATE MANAGER WITH A COMPANY WHEN RATED
 
-PUT http://localhost:5500/update/manager/company/64a4dea45b627235b5f54292
+PUT http://localhost:5500/update/manager/company/64a73066395535b096639d6a
 Content-Type: application/json
 
 {
-    "companies": ["Google"]
+    "companies": ["Google", "Facebook"]
 }
 
 

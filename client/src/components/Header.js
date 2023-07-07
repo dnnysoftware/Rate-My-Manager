@@ -11,7 +11,7 @@ export default function Header() {
       <Navbar.Collapse className='nav-spacing' id="basic-navbar-nav">
         <Nav className="ml-auto nav-spacing">
           <Nav.Link href="/search">Search</Nav.Link>
-          <Nav.Link href="/logout">Add Manager</Nav.Link>
+          <Nav.Link href="/add-manager">Add Manager</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

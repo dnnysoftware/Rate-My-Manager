@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Manager from './pages/Manager';
+import AddManager from './pages/AddManager';
 import Rate from './pages/Rate';
 
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />}/>
           <Route path="/search" element={<Search />}/>
           <Route path="/manager" element={<Manager/>}/>
+          <Route path="/add-manager" element={<AddManager/>}/>
           <Route path="/rate" element={<Rate />}/>
         </Routes>
       </BrowserRouter>

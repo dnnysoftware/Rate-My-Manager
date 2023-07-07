@@ -10,12 +10,17 @@ router.post('/add/manager', async (req, res) => {
         const newManager= new managerModel({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            birthDate: req.body.birthDate
+            birthDate: req.body.birthDate,
+            companies: req.body.companies
         })
         const saveManager = await newManager.save();
-        res.status(200).json(saveManager);
-    }catch(err) {
-        res.json(err);
+        if (saveManager) {
+            res.status(200).json({ message: `Created manager ${saveManager['firstName']} ${saveManager['lastName']}` });
+          } else {
+            res.status(500).json({ message: 'We cannot create a manager at this time' });
+          }
+    } catch (err) {
+        res.status(400).json({ message: 'First name, Last name and Birthday already exists.' });
     }
 });
 
@@ -27,34 +32,82 @@ router.get('/receive/managers/:name', async (req, res) => {
     try {
         let foundManagers = [];
         const searchName = req.params.name.trim(); // Trim any leading or trailing spaces
-        
+
         if (searchName.indexOf(' ') === -1) {
-            foundManagers = await managerModel.find({
-                $or: [
-                    { "firstName": { $regex: new RegExp(searchName, 'i') } },
-                    { "lastName": { $regex: new RegExp(searchName, 'i') } }
-                ]
-            });
+            foundManagers = await managerModel.aggregate([
+                {
+                    $match: {
+                        $or: [
+                            { "firstName": { $regex: new RegExp(searchName, 'i') } },
+                            { "lastName": { $regex: new RegExp(searchName, 'i') } }
+                        ]
+                    }
+                },
+                {
+                    $project: {
+                        firstName: 1,
+                        lastName: 1,
+                        birthDate: 1,
+                        companies: 1,
+                        users: 1,
+                        age: {
+                            $trunc: {
+                                $divide: [
+                                    { $subtract: [new Date(), "$birthDate"] },
+                                    365 * 24 * 60 * 60 * 1000
+                                ]
+                            }
+                        }
+                    }
+                }, 
+                {
+                    $limit: 10
+                }
+            ]);
         } else {
             const names = searchName.split(' ');
             const firstName = names[0];
             const lastName = names.slice(1).join(' '); // Combine remaining names as the last name
-            
-            foundManagers = await managerModel.find({
-                $or: [
-                    {
-                        "firstName": { $regex: new RegExp(firstName, 'i') },
-                        "lastName": { $regex: new RegExp(lastName, 'i') }
-                    },
-                    {
-                        "firstName": { $regex: new RegExp(lastName, 'i') },
-                        "lastName": { $regex: new RegExp(firstName, 'i') }
+
+            foundManagers = await managerModel.aggregate([
+                {
+                    $match: {
+                        $or: [
+                            {
+                                "firstName": { $regex: new RegExp(firstName, 'i') },
+                                "lastName": { $regex: new RegExp(lastName, 'i') }
+                            },
+                            {
+                                "firstName": { $regex: new RegExp(lastName, 'i') },
+                                "lastName": { $regex: new RegExp(firstName, 'i') }
+                            }
+                        ]
                     }
-                ]
-            });
+                },
+                {
+                    $project: {
+                        firstName: 1,
+                        lastName: 1,
+                        birthDate: 1,
+                        companies: 1,
+                        users: 1,
+                        age: {
+                            $trunc: {
+                                $divide: [
+                                    { $subtract: [new Date(), "$birthDate"] },
+                                    365 * 24 * 60 * 60 * 1000
+                                ]
+                            }
+                        }
+                    }
+                }, 
+                {
+                    $limit: 10
+                }
+            ]);
         }
         res.status(200).json(foundManagers);
-    } catch(err) {
+    } catch (err) {
         res.json(err);
     }
 });

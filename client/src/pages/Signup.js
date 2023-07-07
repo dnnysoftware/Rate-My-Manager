@@ -83,7 +83,7 @@ export default function Signup() {
                                 controlId="confirmPassword"
                             >
                                 <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="confirmPassword" placeholder="Enter password" minlength="10"/>
+                                <Form.Control type="password" placeholder="Enter password" minlength="10"/>
                             </Form.Group>
                             <Form.Group
                                 className="mb-3"
