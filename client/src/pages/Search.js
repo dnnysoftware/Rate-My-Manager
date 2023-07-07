@@ -1,7 +1,8 @@
 import { Col, Row, Container, Form, InputGroup, Card, ListGroup } from 'react-bootstrap';
 import Header from "../components/Header";
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import '../css/search.css';
 import axios from 'axios';
 
@@ -10,7 +11,7 @@ export default function Search() {
 
     const [name, setName] = useState('');
     const [managers, setManagers] = useState([]);
-    const navigate = useNavigate();
+    const userId = localStorage.getItem('uid');
 
     const fetchManagers = async (name) => {
         try {
@@ -18,7 +19,6 @@ export default function Search() {
                 const encodedName = encodeURI(name);
                 const url = `/receive/managers/${encodedName}`;
                 const response = await axios.get(url);
-                console.log(response.data)
                 setManagers(response.data);
             } else {
                 setManagers([]);
@@ -35,14 +35,18 @@ export default function Search() {
     useEffect(() => {
         fetchManagers(name);
     }, [name]);
-
+    
+    const handleLinkClick = (manager, userId) => {
+        console.log(manager);
+        console.log(userId);
+    };
 
     return (
         <>
             <Header />
             <Container className="justify-content-center align-items-center d-flex flex-column">
-                <Row className="col-md-6 mb-5" >
-                    <Col>
+                <Row className="mb-5" >
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <h2 className="text-center m-4">Search Managers</h2>
                         <InputGroup>
                             <Form.Control
@@ -54,31 +58,33 @@ export default function Search() {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Row className="col-md-6">
+                <Row>
                     {managers.map((manager, index) => (
-                    <Col className='m-2' key={index}>
-                        <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
-                            <ListGroup bg="light" className='text-center' horizontal>
-                                <ListGroup.Item className='p-1 text-size w-100'>NAME</ListGroup.Item>
-                                <ListGroup.Item className='p-1 text-size w-100'>COMPANIES</ListGroup.Item>
-                                <ListGroup.Item className='p-1 text-size w-100'>AGE</ListGroup.Item>
-                                <ListGroup.Item className='p-1 text-size w-100'>RATING</ListGroup.Item>
-                            </ListGroup>
-                            <ListGroup bg="light" className='text-center' horizontal>
-                                <ListGroup.Item className='text-size w-100'>{manager.firstName} {manager.lastName}</ListGroup.Item>
-                                <ListGroup.Item className='text-size w-100'>
-                                    {manager.companies && manager.companies.length !== 0 ? (
-                                        <div>
-                                            {manager.companies.join(", ")}
-                                        </div>
-                                        ) : (
-                                        <div> N/A </div>
-                                    )}
-                                </ListGroup.Item>
-                                <ListGroup.Item className='text-size w-100'>{manager.age}</ListGroup.Item>
-                                <ListGroup.Item className='rating-size w-100'>5</ListGroup.Item>
-                            </ListGroup>
-                        </Card>
+                    <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                        <Link to='/manager' state={{manager: manager, uid: userId}}>
+                            <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
+                                <ListGroup bg="light" className='text-center' horizontal>
+                                    <ListGroup.Item className='p-1 text-size w-100'>NAME</ListGroup.Item>
+                                    <ListGroup.Item className='p-1 text-size w-100'>COMPANIES</ListGroup.Item>
+                                    <ListGroup.Item className='p-1 text-size w-100'>AGE</ListGroup.Item>
+                                    <ListGroup.Item className='p-1 text-size w-100'>RATING</ListGroup.Item>
+                                </ListGroup>
+                                <ListGroup bg="light" className='text-center' horizontal>
+                                    <ListGroup.Item className='text-size w-100'>{manager.firstName} {manager.lastName}</ListGroup.Item>
+                                    <ListGroup.Item className='text-size w-100'>
+                                        {manager.companies && manager.companies.length !== 0 ? (
+                                            <div>
+                                                {manager.companies.join(", ")}
+                                            </div>
+                                            ) : (
+                                            <div> N/A </div>
+                                        )}
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className='text-center text-size w-100'>{manager.age}</ListGroup.Item>
+                                    <ListGroup.Item className='rating-size w-100'>5</ListGroup.Item>
+                                </ListGroup>
+                            </Card>
+                        </Link>
                     </Col>
                     ))}
                 </Row>

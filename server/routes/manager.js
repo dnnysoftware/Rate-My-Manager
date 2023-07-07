@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const managerModel = require('../models/manager');
 
+
 /* 
 Adds a new Manager to the database
 */
@@ -113,8 +114,6 @@ router.get('/receive/managers/:name', async (req, res) => {
 });
 
 
-
-
 /* 
 Updates a Manager with a User when one makes a rating
 */
@@ -151,5 +150,42 @@ router.put('/update/manager/company/:mid', async (req, res) => {
         res.json(err);
     }
 });
+
+// TODO
+
+/* 
+Recieves all ratings for a specific manager id
+*/
+router.get('/receive/ratings/:mid', async (req, res) => {
+    try{
+        const mid = req.params.mid;
+        const foundRatings = await managerModel.find({"manager": mid});
+        res.status(200).json(foundRatings);
+    }catch(err) {
+        res.json(err);
+    }
+});
+
+
+/* 
+Adds a new Rating for a manager to the database
+*/
+router.post('/add/rating', async (req, res) => {
+    try{
+        const newRating= new managerModel({
+            user: req.body.user,
+            manager: req.body.manager,
+            company: req.body.company,
+            rating: req.body.rating,
+            description: req.body.description
+        })
+        const saveRating = await newRating.save();
+        res.status(200).json(saveRating);
+    }catch(err) {
+        res.json(err);
+    }
+});
+
+
 
 module.exports = router;

@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5500;
 
 const managerRoute = require('./routes/manager');
 const userRoute = require('./routes/user');
-const ratingRoute = require('./routes/rating');
+// const ratingRoute = require('./routes/rating');
 
 
 
@@ -27,7 +27,7 @@ mongoose.connect(process.env.ATLAS_CONNECTION_STRING)
 
 app.use('/', userRoute);
 app.use('/', managerRoute);
-app.use('/', ratingRoute);
+// app.use('/', ratingRoute);
 
 
 

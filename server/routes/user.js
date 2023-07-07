@@ -11,6 +11,7 @@ const loginLimiter = rateLimit({
   message: 'Too many login attempts. Please try again later.',
 });
 
+
 /* 
 Adds a new User to the database
 */
@@ -32,6 +33,7 @@ router.post('/signup/user', async (req, res) => {
   }
 });
 
+
 /* 
 Login uses a post to not put sensitive credentials in URI
 Rate limited to prevent brute force attacks
@@ -47,14 +49,15 @@ router.post('/login/user', loginLimiter, async (req, res) => {
       const token = jwt.sign({ userId: loginUser._id  }, 'your-secret-key', {
         expiresIn: '1h', // Token expiration time
       });
-      res.status(200).json({ token });
+      res.status(200).json({ token, userId: loginUser._id});
     } else {
-      res.status(500).json({ message: 'We cannot retrieve your account at this time.' });
+      res.status(500).json({ message: 'Username or Password does not exist.' });
     }
   } catch (err) {
     res.status(400).json({ message: 'Username or Password does not exist.' });
   }
 });
+
 
 /* 
 Updates a User with a Manager when one makes a rating

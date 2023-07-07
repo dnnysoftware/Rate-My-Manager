@@ -10,32 +10,33 @@ export default function Login() {
     const [message, setMessage] = useState('');
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+      e.preventDefault();
 
-        // Get the form data
-        const username = e.target.elements.username.value;
-        const password = e.target.elements.password.value;
+      // Get the form data
+      const username = e.target.elements.username.value;
+      const password = e.target.elements.password.value;
 
-        // Create an object with the data
-        const loginUser = {
-            username: username,
-            password: password
-        };
+      // Create an object with the data
+      const loginUser = {
+          username: username,
+          password: password
+      };
 
-        // Make the Axios call
-        axios.post('/login/user', loginUser)
-            .then((response) => {
-            // Handle the response if needed
-            const token = response.data.token;
-            localStorage.setItem('token', token); // Store the token in local storage
-
-            setMessage('');
-            navigate('/search'); // Redirect to the dashboard or another protected route
-            })
-            .catch((error) => {
-            // Handle errors if any
-            setMessage(error.response.data.message);
-            });
+      // Make the Axios call
+      axios.post('/login/user', loginUser)
+          .then((response) => {
+          // Handle the response if needed
+          const token = response.data.token;
+          localStorage.setItem('token', token); // Store the token in local storage
+          localStorage.setItem('uid', response.data.userId);
+          
+          setMessage('');
+          navigate('/search'); // Redirect to the dashboard or another protected route
+          })
+          .catch((error) => {
+          // Handle errors if any
+          setMessage(error.response.data.message);
+          });
     };
 
     

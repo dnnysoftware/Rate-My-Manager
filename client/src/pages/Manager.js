@@ -1,11 +1,15 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from "../components/Header";
 
-
 export default function Manager() {
-    return (
-        <>
-            <Header />
-            <h2>Manager</h2>
-        </>
-    );
+  const location = useLocation();
+  console.log(location);
+  return (
+    <>
+      <Header />
+      <h2>Manager</h2>
+    </>
+  );
 }
+
