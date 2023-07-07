@@ -36,10 +36,6 @@ export default function Search() {
         fetchManagers(name);
     }, [name]);
     
-    const handleLinkClick = (manager, userId) => {
-        console.log(manager);
-        console.log(userId);
-    };
 
     return (
         <>
@@ -61,7 +57,7 @@ export default function Search() {
                 <Row>
                     {managers.map((manager, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                        <Link to='/manager' state={{manager: manager, uid: userId}}>
+                        <Link to='/manager' style={{textDecoration: 'none'}} state={{manager: manager, uid: userId}}>
                             <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
                                 <ListGroup bg="light" className='text-center' horizontal>
                                     <ListGroup.Item className='p-1 text-size w-100'>NAME</ListGroup.Item>

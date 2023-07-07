@@ -24,6 +24,10 @@ const managerSchema = new Schema({
                 ref: 'User', 
                 required: true,
             },
+            username: {
+                type: String, 
+                required: true,
+            },
             company: {
                 type: String,
                 required: true

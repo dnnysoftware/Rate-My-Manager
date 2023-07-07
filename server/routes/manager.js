@@ -50,7 +50,7 @@ router.get('/receive/managers/:name', async (req, res) => {
                         lastName: 1,
                         birthDate: 1,
                         companies: 1,
-                        users: 1,
+                        ratings: 1,
                         age: {
                             $trunc: {
                                 $divide: [
@@ -91,7 +91,7 @@ router.get('/receive/managers/:name', async (req, res) => {
                         lastName: 1,
                         birthDate: 1,
                         companies: 1,
-                        users: 1,
+                        ratings: 1,
                         age: {
                             $trunc: {
                                 $divide: [
@@ -170,21 +170,33 @@ router.get('/receive/ratings/:mid', async (req, res) => {
 /* 
 Adds a new Rating for a manager to the database
 */
-router.post('/add/rating', async (req, res) => {
-    try{
-        const newRating= new managerModel({
+router.put('/add/rating/:mid', async (req, res) => {
+    try {
+        const managerId = req.params.mid;
+        const manager = await managerModel.findById(managerId);
+
+        if (!manager) {
+            return res.status(404).json({ message: 'Manager not found' });
+        }
+
+        const newRating = {
             user: req.body.user,
-            manager: req.body.manager,
+            username: req.body.username,
             company: req.body.company,
             rating: req.body.rating,
             description: req.body.description
-        })
-        const saveRating = await newRating.save();
-        res.status(200).json(saveRating);
-    }catch(err) {
-        res.json(err);
+        };
+
+        manager.ratings.push(newRating);
+        manager.companies.push(req.body.company);
+        const updatedManager = await manager.save();
+
+        res.status(200).json(updatedManager);
+    } catch (err) {
+        res.status(500).json({ message: 'Error adding rating', error: err });
     }
 });
+
 
 
 
