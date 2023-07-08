@@ -31,7 +31,7 @@ export default function Signup() {
         };
     
         // Make the Axios call
-        axios.post('/signup/user', newUser)
+        axios.post('/signup/user', newUser, { withCredentials: true })
           .then((response) => {
             // Handle the response if needed
             console.log(response.data.message);
