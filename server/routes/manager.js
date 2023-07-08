@@ -191,6 +191,7 @@ router.put('/add/rating/:mid', async (req, res) => {
         manager.companies = [...new Set(companiesArr)];
 
         const updatedManager = await manager.save();
+
         if (updatedManager) {
             res.status(200).json({ message: 'Added rating to a manager' });
           } else {

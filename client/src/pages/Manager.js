@@ -28,7 +28,10 @@ export default function Manager() {
                     </Col>
                     <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
                         <Card>
-                            <Card.Body>{location.state.manager.companies.join(", ")}</Card.Body>
+                            <Card.Body>  
+                                {location.state.manager.companies &&
+                                location.state.manager.companies.join(", ")}
+                            </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
@@ -43,7 +46,7 @@ export default function Manager() {
             </Container>
             <Container className="justify-content-center align-items-center flex-column">
                 <Row>
-                    {location.state.manager.ratings.map((rating, index) => (
+                    {location.state.manager.ratings && location.state.manager.ratings.map((rating, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
                             <ListGroup bg="light" className='text-center' horizontal>

@@ -36,13 +36,14 @@ export default function Rate() {
             };
     
             const url = `/add/rating/${location.state.manager._id}`;
-            const ratingResponse = await axios.put(url, newRating);
+            await axios.put(url, newRating);
             setMessage('');
-            navigate("/manager", { state: { uid: location.state.uid, manager: ratingResponse.data  } })
+            navigate("/search");
           }
         } catch (error) {
           // Handle errors if any
           setMessage(error.response.data.message);
+          navigate("/search");
         }
     };
 
