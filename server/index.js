@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
-const managerRoute = require('./routes/manager');
-const userRoute = require('./routes/user');
 
 const PORT = process.env.PORT || 5500;
 
@@ -19,6 +17,9 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
+
+const managerRoute = require('./routes/manager');
+const userRoute = require('./routes/user');
 
 // Connect to mongodb instance
 
