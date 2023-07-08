@@ -45,6 +45,10 @@ export default function Rate() {
     };
 
 
+    const cancelRating = (e) => {
+        navigate("/manager", { state: { uid: location.state.uid, manager: location.state.manager } });
+    }
+
 
     return (
         <div>  
@@ -119,9 +123,12 @@ export default function Rate() {
                                                     {message}
                                                 </div>
                                             ) : null}
-                                            <div className="d-grid">
+                                            <div className="d-grid d-flex justify-content-center align-items-center">
                                                 <Button variant="primary" type="submit">
                                                 Create Rating
+                                                </Button>
+                                                <Button className='m-4' variant="primary" type="button" onClick={cancelRating}>
+                                                Cancel
                                                 </Button>
                                             </div>
                                         </Form>

@@ -30,7 +30,7 @@ export default function Manager() {
                     </Col>
                     <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
                         <Card>
-                            <Card.Body>Rating: <AvgRate manager={location.state.manager}/></Card.Body>
+                            <Card.Body>Average Rating: <AvgRate manager={location.state.manager}/></Card.Body>
                         </Card>
                     </Col>
                     <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
@@ -43,6 +43,12 @@ export default function Manager() {
                     {location.state.manager.ratings.map((rating, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
+                            <ListGroup bg="light" className='text-center' horizontal>
+                                <ListGroup.Item className='w-100'>NAME</ListGroup.Item>
+                                <ListGroup.Item className='w-100'>COMPANY</ListGroup.Item>
+                                <ListGroup.Item className='w-100'>DESCRIPTION</ListGroup.Item>
+                                <ListGroup.Item className='w-100'>RATING</ListGroup.Item>
+                            </ListGroup>
                             <ListGroup bg="light" className='text-center' horizontal>
                                 <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>{rating.username}</ListGroup.Item>
                                 <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>{rating.company}</ListGroup.Item>
