@@ -3,8 +3,8 @@ import Header from "../components/Header";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AvgRate from '../components/AvgRate';
-
 import '../css/search.css';
+import '../css/items.css';
 import axios from 'axios';
 
 
@@ -61,7 +61,7 @@ export default function Search() {
                     {managers.map((manager, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <Link to='/manager' style={{textDecoration: 'none'}} state={{manager: manager, uid: userId}}>
-                            <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
+                            <Card className="item justify-content-center align-items-center d-flex" text="white" body>
                                 <ListGroup bg="light" className='text-center' horizontal>
                                     <ListGroup.Item className='p-1 text-size w-100'>NAME</ListGroup.Item>
                                     <ListGroup.Item className='p-1 text-size w-100'>COMPANIES</ListGroup.Item>

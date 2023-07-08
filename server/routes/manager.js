@@ -191,10 +191,13 @@ router.put('/add/rating/:mid', async (req, res) => {
         manager.companies = [...new Set(companiesArr)];
 
         const updatedManager = await manager.save();
-
-        res.status(200).json(updatedManager);
+        if (updatedManager) {
+            res.status(200).json({ message: 'Added rating to a manager' });
+          } else {
+            res.status(500).json({ message: 'We cannot create a rating at this time' });
+          }
     } catch (err) {
-        res.status(500).json({ message: 'Error adding/updating rating', error: err });
+        res.status(400).json({ message: 'Missing attributes' });
     }
 });
 

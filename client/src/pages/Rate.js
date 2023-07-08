@@ -40,7 +40,6 @@ export default function Rate() {
         } catch (error) {
           // Handle errors if any
           setMessage(error.response.data.message);
-          navigate("/manager", { state: { uid: location.state.uid, manager: {} } });
         }
     };
 

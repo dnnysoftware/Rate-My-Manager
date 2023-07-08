@@ -23,7 +23,7 @@ export default function Login() {
       };
 
       // Make the Axios call
-      axios.post('/login/user', loginUser)
+      axios.post('/login/user', loginUser, { withCredentials: true })
           .then((response) => {
           // Handle the response if needed
           const token = response.data.token;
