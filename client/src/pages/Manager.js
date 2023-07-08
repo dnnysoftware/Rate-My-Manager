@@ -38,7 +38,7 @@ export default function Manager() {
                     </Col>
                 </Row>
             </Container>
-            <Container className="justify-content-center align-items-center d-flex flex-column">
+            <Container className="justify-content-center align-items-center  flex-column">
                 <Row>
                     {location.state.manager.ratings.map((rating, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>

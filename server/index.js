@@ -1,13 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
+
+const PORT = process.env.PORT || 5500;
 
 const app = express();
 
-app.use(express.json());
+app.use(cookieParser());
 
-const PORT = process.env.PORT || 5500;
+app.use(express.json());
 
 app.use(cors({
     origin: ["http://localhost:3000"],
