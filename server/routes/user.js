@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const rateLimit = require('express-rate-limit');
-const jwt = require('jsonwebtoken');
-
 const userModel = require('../models/user');
+const { createSecretToken } = require("../util/SecretToken");
+const bcrypt = require("bcryptjs");
 
 // Rate limiting middleware
 const loginLimiter = rateLimit({
@@ -17,12 +17,20 @@ Adds a new User to the database
 */
 router.post('/signup/user', async (req, res) => {
   try {
+
     const newUser = new userModel({
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
     });
     const saveUser = await newUser.save();
+    const token = createSecretToken(saveUser._id);
+
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
+
     if (saveUser) {
       res.status(200).json({ message: `Created user ${saveUser['username']}` });
     } else {
@@ -42,13 +50,20 @@ router.post('/login/user', loginLimiter, async (req, res) => {
   try {
     const loginUser = await userModel.findOne({
       username: req.body.username,
-      password: req.body.password,
     });
+
+    const auth = await bcrypt.compare(req.body.password, loginUser.password)
+    if (!auth) {
+      return res.json({message:'Incorrect password or username' }) 
+    }
+
     if (loginUser) {
-      // Create a JWT token
-      const token = jwt.sign({ userId: loginUser._id  }, 'your-secret-key', {
-        expiresIn: '1h', // Token expiration time
+      const token = createSecretToken(loginUser._id);
+      res.cookie("token", token, {
+        withCredentials: true,
+        httpOnly: false,
       });
+
       res.status(200).json({ token, userId: loginUser._id});
     } else {
       res.status(500).json({ message: 'Username or Password does not exist.' });

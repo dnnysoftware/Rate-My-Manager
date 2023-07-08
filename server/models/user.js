@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -18,6 +19,10 @@ const userSchema = new Schema({
     managers: [
         {type: Schema.Types.ObjectId, ref: 'Manager'}
     ]
+});
+
+userSchema.pre("save", async function () {
+    this.password = await bcrypt.hash(this.password, 12);
 });
 
 module.exports = mongoose.model('User', userSchema);

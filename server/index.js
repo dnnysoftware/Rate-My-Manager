@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
@@ -9,13 +9,14 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5500;
 
-
-// app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
 
 const managerRoute = require('./routes/manager');
 const userRoute = require('./routes/user');
-// const ratingRoute = require('./routes/rating');
-
 
 
 mongoose.connect(process.env.ATLAS_CONNECTION_STRING)
@@ -27,8 +28,6 @@ mongoose.connect(process.env.ATLAS_CONNECTION_STRING)
 
 app.use('/', userRoute);
 app.use('/', managerRoute);
-// app.use('/', ratingRoute);
-
 
 
 app.listen(PORT, ()=> console.log("Server connected!"));

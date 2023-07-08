@@ -1,4 +1,4 @@
-express, mongoose, nodemon, dotenv, cors, express-rate-limit, jsonwebtoken
+express, mongoose, nodemon, dotenv, cors, express-rate-limit, jsonwebtoken, bcryptjs
 
 
 start server: npm start
