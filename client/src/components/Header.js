@@ -2,6 +2,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '../css/header.css';
 
+/**
+ * The upper navigational component with links to other pages
+ * @returns the upper navigation
+ */
 export default function Header() {
 
   const removeUser = (e) => {

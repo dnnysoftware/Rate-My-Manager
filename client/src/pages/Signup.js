@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
+/**
+ * Signin page which uses JWT and inserts new User
+ */
 export default function Signup() {
 
     const navigate = useNavigate();

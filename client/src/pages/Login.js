@@ -3,6 +3,9 @@ import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+/**
+ * Login page which uses JWT and checks password hash for authentication purposes
+ */
 export default function Login() {
 
 

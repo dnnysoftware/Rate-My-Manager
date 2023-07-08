@@ -7,7 +7,9 @@ import Manager from './pages/Manager';
 import AddManager from './pages/AddManager';
 import Rate from './pages/Rate';
 
-
+/**
+ * The main router for multi-page React app
+ */
 function App() {
   return (
     <div className="App">

@@ -4,7 +4,9 @@ import Header from '../components/Header';
 import AvgRate from '../components/AvgRate';
 import '../css/items.css';
 
-
+/**
+ * Manager page show shows that individual's information also individual ratings
+ */
 export default function Manager() {
 
     const location = useLocation();

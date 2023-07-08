@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
+const managerRoute = require('./routes/manager');
+const userRoute = require('./routes/user');
 
 const PORT = process.env.PORT || 5500;
 
@@ -18,9 +20,7 @@ app.use(cors({
     credentials: true
 }));
 
-const managerRoute = require('./routes/manager');
-const userRoute = require('./routes/user');
-
+// Connect to mongodb instance
 
 mongoose.connect(process.env.ATLAS_CONNECTION_STRING)
 .then(() => console.log("Connected To The Database!"))

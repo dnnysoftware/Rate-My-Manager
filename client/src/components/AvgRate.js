@@ -1,3 +1,9 @@
+
+/**
+ * Calculates the average rating from a list of ratings 
+ * @param {*} props retieves a manager with a list of ratings
+ * @returns the average rating as a derived attribute
+ */
 export default function AvgRate(props) { 
 
     const calculateAverageRating = (manager) => {
@@ -14,6 +20,4 @@ export default function AvgRate(props) {
             {calculateAverageRating(props.manager)}
         </>
     );
-
-
 }

@@ -5,6 +5,9 @@ import axios from 'axios';
 import Header from '../components/Header';
 
 
+/**
+ * Creates a new rating for a Manager from a designated user
+ */
 export default function Rate() {
 
     const location = useLocation();

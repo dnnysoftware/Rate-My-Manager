@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 
-
+/**
+ * Add a manager page which uses an axios to submit a new manager
+ */
 export default function AddManager() {
 
     const navigate = useNavigate();

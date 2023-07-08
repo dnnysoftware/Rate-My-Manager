@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Manager Schema
 const managerSchema = new Schema({
     firstName:{
         type: String,
@@ -50,7 +51,10 @@ const managerSchema = new Schema({
     ]
 });
 
+// Index for unique managers
 managerSchema.index({ firstName: 1, lastName: 1, birthDate: 1}, { unique: true });
+
+// Index for unique user per manager
 managerSchema.index({ _id: 1, 'ratings.user': 1 }, { unique: true });
 
 module.exports = mongoose.model('Manager', managerSchema);

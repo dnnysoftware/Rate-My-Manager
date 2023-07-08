@@ -7,7 +7,9 @@ import '../css/search.css';
 import '../css/items.css';
 import axios from 'axios';
 
-
+/**
+ * Searches for Managers with the provided substring
+ */
 export default function Search() {
 
     const [name, setName] = useState('');
