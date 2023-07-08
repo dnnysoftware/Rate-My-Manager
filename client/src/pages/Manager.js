@@ -1,53 +1,53 @@
-import React, { useState } from 'react';
-import { Col, Button, Row, Container, Card, Form, ListGroup, Link } from 'react-bootstrap';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { Col, Button, Row, Container, Card, ListGroup} from 'react-bootstrap';
+import { useLocation,  Link  } from 'react-router-dom';
 import Header from '../components/Header';
+import AvgRate from '../components/AvgRate';
 
 
 export default function Manager() {
 
     const location = useLocation();
-    const [ratings, setRatings] = useState([]);
-
-
-
 
     return (
         <div>  
             <Header/>
-            <Container className="justify-content-center align-items-center d-flex flex-column">
+            <Container>
                 <Row className="mb-5" >
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <h2 className="text-center m-4">Ratings</h2>
                     </Col>
                 </Row>
-                <Row className="mb-5" xs={1} sm={1} md={1} lg={3} xl={3} xxl={3}>
-                    <Col xs={12} sm={12} md={12} lg={4} xl={4} xxl={4}>
+                <Row className="mb-3 text-center justify-content-center align-items-center" xs={1} sm={1} md={4} lg={4} xl={4} xxl={4}>
+                    <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
                         <Card>
                             <Card.Body>{location.state.manager.firstName} {location.state.manager.lastName}</Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={12} sm={12} md={12} lg={4} xl={4} xxl={4}>
+                    <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
                         <Card>
                             <Card.Body>{location.state.manager.companies.join(", ")}</Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={12} sm={12} md={12} lg={4} xl={4} xxl={4}>
+                    <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
                         <Card>
-                            <Card.Body>{location.state.manager.age}</Card.Body>
+                            <Card.Body>Rating: <AvgRate manager={location.state.manager}/></Card.Body>
                         </Card>
                     </Col>
+                    <Col xs={12} sm={12} md={3} lg={3} xl={3} xxl={3}>
+                        <Link to='/rate' state={{manager: location.state.manager, uid: location.state.uid }}><Button>Add Rating</Button></Link>
+                    </Col>
                 </Row>
+            </Container>
+            <Container className="justify-content-center align-items-center d-flex flex-column">
                 <Row>
                     {location.state.manager.ratings.map((rating, index) => (
                     <Col className='m-2' key={index} xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                         <Card className="justify-content-center align-items-center d-flex" bg="primary" text="white" body>
                             <ListGroup bg="light" className='text-center' horizontal>
-                                <ListGroup.Item className='text-size'>{rating.username}</ListGroup.Item>
-                                <ListGroup.Item className='text-size'>{rating.company}</ListGroup.Item>
-                                <ListGroup.Item className='text-size'>{rating.description}</ListGroup.Item>
-                                <ListGroup.Item className='rating-size'>{rating.rating}</ListGroup.Item>
+                                <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>{rating.username}</ListGroup.Item>
+                                <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>{rating.company}</ListGroup.Item>
+                                <ListGroup.Item className='text-size w-100'>{rating.description}</ListGroup.Item>
+                                <ListGroup.Item className='rating-size w-100 d-flex align-items-center justify-content-center'>{rating.rating}</ListGroup.Item>
                             </ListGroup>
                         </Card>
                     </Col>

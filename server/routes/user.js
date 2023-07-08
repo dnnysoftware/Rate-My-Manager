@@ -60,6 +60,24 @@ router.post('/login/user', loginLimiter, async (req, res) => {
 
 
 /* 
+GET request to retrieve username by ID using an aggregate function
+*/
+router.get('/user/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userModel.findOne({_id: userId})
+    if(user) {
+      res.status(200).json({ username: user.username });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Error retrieving username', error: err });
+  }
+});
+
+
+/* 
 Updates a User with a Manager when one makes a rating
 */
 router.put('/update/user/manager/:uid', async (req, res) => {

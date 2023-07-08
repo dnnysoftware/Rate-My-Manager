@@ -133,25 +133,6 @@ router.put('/update/manager/user/:mid', async (req, res) => {
 });
 
 
-/* 
-Updates a Manager with a company they may work for
-*/
-router.put('/update/manager/company/:mid', async (req, res) => {
-    try{
-        const mid = req.params.mid;
-        const { companies } = req.body;
-        const updateManager = await managerModel.findByIdAndUpdate(
-            mid,
-            { $set: { companies: companies.map(managerId => ({ _id: managerId })) } },
-            { new: true } // Returns the updated user document
-        );
-        res.status(200).json("New Company Added To Manager's Work Experience");
-    }catch(err) {
-        res.json(err);
-    }
-});
-
-// TODO
 
 /* 
 Recieves all ratings for a specific manager id
@@ -179,6 +160,21 @@ router.put('/add/rating/:mid', async (req, res) => {
             return res.status(404).json({ message: 'Manager not found' });
         }
 
+        const userId = req.body.user;
+        const existingRatingIndex = manager.ratings.findIndex(rating => rating.user.toString() === userId);
+
+        if (existingRatingIndex !== -1) {
+            // Update the existing rating
+            const existingRating = manager.ratings[existingRatingIndex];
+            existingRating.rating = req.body.rating;
+            existingRating.description = req.body.description;
+
+            await manager.save();
+
+            return res.status(200).json(manager);
+        }
+
+        // Add a new rating
         const newRating = {
             user: req.body.user,
             username: req.body.username,
@@ -188,12 +184,17 @@ router.put('/add/rating/:mid', async (req, res) => {
         };
 
         manager.ratings.push(newRating);
-        manager.companies.push(req.body.company);
+
+        const companiesArr = manager.companies;
+        companiesArr.push(req.body.company);
+
+        manager.companies = [...new Set(companiesArr)];
+
         const updatedManager = await manager.save();
 
         res.status(200).json(updatedManager);
     } catch (err) {
-        res.status(500).json({ message: 'Error adding rating', error: err });
+        res.status(500).json({ message: 'Error adding/updating rating', error: err });
     }
 });
 

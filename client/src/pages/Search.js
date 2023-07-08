@@ -2,6 +2,7 @@ import { Col, Row, Container, Form, InputGroup, Card, ListGroup } from 'react-bo
 import Header from "../components/Header";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AvgRate from '../components/AvgRate';
 
 import '../css/search.css';
 import axios from 'axios';
@@ -66,8 +67,8 @@ export default function Search() {
                                     <ListGroup.Item className='p-1 text-size w-100'>RATING</ListGroup.Item>
                                 </ListGroup>
                                 <ListGroup bg="light" className='text-center' horizontal>
-                                    <ListGroup.Item className='text-size w-100'>{manager.firstName} {manager.lastName}</ListGroup.Item>
-                                    <ListGroup.Item className='text-size w-100'>
+                                    <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>{manager.firstName} {manager.lastName}</ListGroup.Item>
+                                    <ListGroup.Item className='text-size w-100 d-flex align-items-center justify-content-center'>
                                         {manager.companies && manager.companies.length !== 0 ? (
                                             <div>
                                                 {manager.companies.join(", ")}
@@ -76,8 +77,8 @@ export default function Search() {
                                             <div> N/A </div>
                                         )}
                                     </ListGroup.Item>
-                                    <ListGroup.Item className='text-center text-size w-100'>{manager.age}</ListGroup.Item>
-                                    <ListGroup.Item className='rating-size w-100'>5</ListGroup.Item>
+                                    <ListGroup.Item className='text-center text-size w-100 d-flex align-items-center justify-content-center'>{manager.age}</ListGroup.Item>
+                                    <ListGroup.Item className='rating-size w-100 d-flex align-items-center justify-content-center'><AvgRate manager={manager} /></ListGroup.Item>
                                 </ListGroup>
                             </Card>
                         </Link>
